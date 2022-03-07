@@ -1,5 +1,5 @@
 // Models
-const {ToDo} = require('../models/todo.model')
+const { ToDo } = require('../models/todo.model');
 
 // Utils
 const { filterObj } = require('../utils/filterObj');
@@ -7,7 +7,6 @@ const { filterObj } = require('../utils/filterObj');
 // Get all todos
 exports.getAllTodos = async (req, res) => {
   try {
-    // SELECT * FROM posts WHERE status = 'active'; -> posts[]
     const todo = await ToDo.findAll({ where: { status: 'active' } });
 
     res.status(200).json({
@@ -27,8 +26,8 @@ exports.createTodo = async (req, res) => {
     const { title, content } = req.body;
 
     const newTodo = await ToDo.create({
-      title: title, 
-      content: content,
+      title: title,
+      content: content
     });
 
     res.status(201).json({
@@ -40,7 +39,7 @@ exports.createTodo = async (req, res) => {
   }
 };
 
-// Update todo 
+// Update todo
 exports.updateTodo = async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,9 +81,6 @@ exports.deleteTodo = async (req, res) => {
       });
       return;
     }
-
-    // DELETE FROM posts WHERE id = 1;
-    // await post.destroy();
 
     // Soft delete
     await todo.update({ status: 'deleted' });
